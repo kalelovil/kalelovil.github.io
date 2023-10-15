@@ -34,12 +34,38 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = "2828169058";
+    const serviceWorkerVersion = "96692177";
   </script>
+
+<script>
+  window.flutterWebRenderer="html";
+</script>
+
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbwSPWOTfhW-MlUxridvD-0FTIK4pMybE"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbwSPWOTfhW-MlUxridvD-0FTIK4pMybE&libraries=places&callback=initMap"></script>
+
+  <script>
+    let useHtml = true;
+
+    window.addEventListener('load', function(ev) {
+    _flutter.loader.loadEntrypoint({
+      serviceWorker: {
+        serviceWorkerVersion: serviceWorkerVersion,
+      },
+      onEntrypointLoaded: function(engineInitializer) {
+        // Run-time engine configuration
+        let config = {
+          renderer: useHtml ? "html" : "canvaskit",
+        };
+        engineInitializer.initializeEngine(config).then(function(appRunner) {
+          appRunner.runApp();
+        });
+      }
+    });
+  });
+  </script>
 </head>
 <body>
   <script>
